@@ -2,6 +2,7 @@
     "name": "zenith6/eccube-zelib",
     "description": "zelib is library and utilities for EC-CUBE plugins.",
     "type": "library",
+    "version": "1.0.0-dev",
     "license": "LGPL-2.1",
     "authors": [
         {
@@ -20,7 +21,7 @@
         "php": ">=5.1.6"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.0.*"
+        "phpunit/phpunit": ">=4.0"
     },
     "autoload": {
         "psr-0": {

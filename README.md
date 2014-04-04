@@ -1,7 +1,7 @@
-EC-CUBE zelib
-=============
+zeclib
+======
 
-EC-CUBE zelib は EC-CUBE プラグインで使用するライブラリとツールです。
+zeclib は EC-CUBE プラグインで使用するライブラリとツールです。
 
 
 利用方法

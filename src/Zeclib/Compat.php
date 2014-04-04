@@ -5,7 +5,7 @@
  *
  * @author Seiji Nitta
  */
-class Zenith_Eccube_Compat
+class Zeclib_Compat
 {
     private final function __construct() {
         throw new BadMethodCallException('Do not create instance.');

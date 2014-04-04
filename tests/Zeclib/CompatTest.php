@@ -1,6 +1,6 @@
 <?php
 
-class Zenith_Eccube_CompatTest extends PHPUnit_Framework_TestCase
+class Zeclib_CompatTest extends PHPUnit_Framework_TestCase
 {
     public function provideValidValues()
     {
@@ -19,7 +19,7 @@ class Zenith_Eccube_CompatTest extends PHPUnit_Framework_TestCase
     public function testEncode($json, $native)
     {
         $expected = $json;
-        $actual = Zenith_Eccube_Compat::encodeJson($native);
+        $actual = Zeclib_Compat::encodeJson($native);
         $this->assertEquals($expected, $actual);
     }
 
@@ -29,21 +29,21 @@ class Zenith_Eccube_CompatTest extends PHPUnit_Framework_TestCase
     public function testDecode($json, $native)
     {
         $expected = $native;
-        $actual = Zenith_Eccube_Compat::decodeJson($json);
+        $actual = Zeclib_Compat::decodeJson($json);
         $this->assertEquals($expected, $actual);
     }
 
     public function testDecodeToArray()
     {
         $expected = array('a' => 1);
-        $actual = Zenith_Eccube_Compat::decodeJson('{"a":1}', true);
+        $actual = Zeclib_Compat::decodeJson('{"a":1}', true);
         $this->assertEquals($expected, $actual);
     }
 
     public function testDecodeToObject()
     {
         $expected = (object)array('a' => 1);
-        $actual = Zenith_Eccube_Compat::decodeJson('{"a":1}', false);
+        $actual = Zeclib_Compat::decodeJson('{"a":1}', false);
         $this->assertEquals($expected, $actual);
     }
 }

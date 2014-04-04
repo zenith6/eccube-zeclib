@@ -3,7 +3,7 @@
 /**
  * @author Seiji Nitta
  */
-class Zenith_Eccube_PageStorage extends ArrayObject
+class Zeclib_PageStorage extends ArrayObject
 {
     protected $secretKey;
 

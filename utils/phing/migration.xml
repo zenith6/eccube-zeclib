@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="Zeclib" default="none">
+    <property name="zeclib.src_dir" value="../../src" />
+    <includepath classpath="${zeclib.src_dir}" />
+
+    <property name="eccube.data_dir" value="E:\Www\dev\eccube-2.13.1\data" />
+    <property name="eccube.html_dir" value="E:\Www\dev\eccube-2.13.1\html" />
+
+    <property name="table" value="dtb_migration" />
+    <property name="system" value="default" />
+    <property name="container_dir" value="C:\Users\zenith\eclipse\eccube-zeclib\tests\_files\phing\migration\migrations" />
+
+    <target name="migration-setup">
+        <taskdef name="zeclib-migration-setup" classname="Zeclib_Phing_MigrationSetupTask" />
+        <propertyprompt propertyName="table" promptText="Enter table name" defaultValue="dtb_migration" useExistingValue="true" />
+        <zeclib-migration-setup dataDir="${eccube.data_dir}" htmlDir="${eccube.html_dir}" versionTable="${table}" />
+    </target>
+
+    <target name="migration-destroy">
+        <taskdef name="zeclib-migration-destroy" classname="Zeclib_Phing_MigrationDestroyTask" />
+        <propertyprompt propertyName="table" promptText="Enter table name" defaultValue="dtb_migration" useExistingValue="true" />
+        <zeclib-migration-destroy dataDir="${eccube.data_dir}" htmlDir="${eccube.html_dir}" versionTable="${table}" />
+    </target>
+
+    <target name="migration-generate">
+        <taskdef name="zeclib-migration-generate" classname="Zeclib_Phing_MigrationGenerateTask" />
+        <propertyprompt propertyName="name" promptText="Enter name (e.g. CreateTableFoo)" defaultValue="New" useExistingValue="true" />
+        <tstamp>
+            <format property="version" pattern="%Y%m%d%H%M%S" />
+        </tstamp>
+        <propertyprompt propertyName="version" promptText="Enter version" defaultValue="${version}" useExistingValue="false" />
+        <resolvepath propertyName="default_template_file" file="migration.tpl.php" />
+        <propertyprompt propertyName="template_file" promptText="Enter template file" defaultValue="${default_template_file}" useExistingValue="false" />
+        <propertyprompt propertyName="container_dir" promptText="Enter container directory" useExistingValue="true" />
+        <property name="container_name" value="__TPL_VERSION_____TPL_NAME__Migration.php" />
+        <zeclib-migration-generate name="${name}" version="${version}" templateFile="${template_file}" containerDir="${container_dir}" containerName="${container_name}" />
+    </target>
+
+    <target name="migration-up">
+        <taskdef name="zeclib-migration-up" classname="Zeclib_Phing_MigrationUpTask" />
+        <propertyprompt propertyName="table" promptText="" useExistingValue="true" />
+        <propertyprompt propertyName="system" promptText="Enter system" useExistingValue="true" />
+        <propertyprompt propertyName="from" promptText="Enter apply version from (set empty if apply from first version)" useExistingValue="true" />
+        <propertyprompt propertyName="to" promptText="Enter apply version to (set empty if apply to latest version)" useExistingValue="true" />
+        <zeclib-migration-up dataDir="${eccube.data_dir}" htmlDir="${eccube.html_dir}" containerDir="${container_dir}" system="${system}" from="${from}" to="${to}" />
+    </target>
+
+    <target name="migration-down">
+        <taskdef name="zeclib-migration-down" classname="Zeclib_Phing_MigrationDownTask" />
+        <propertyprompt propertyName="table" promptText="" useExistingValue="true" />
+        <propertyprompt propertyName="system" promptText="Enter system" useExistingValue="true" />
+        <propertyprompt propertyName="from" promptText="Enter apply version from (set empty if apply from first version)" useExistingValue="true" />
+        <propertyprompt propertyName="to" promptText="Enter apply version to (set empty if apply to latest version)" useExistingValue="true" />
+        <propertyprompt propertyName="ignore_missing" promptText="Skip revert if migration container is missing (y/N)" defaultValue="n" useExistingValue="true" />
+        <zeclib-migration-down dataDir="${eccube.data_dir}" htmlDir="${eccube.html_dir}" containerDir="${container_dir}" system="${system}" from="${from}" to="${to}" ignoreMissing="${ignore_missing}" />
+    </target>
+
+    <target name="migration-apply">
+        <taskdef name="zeclib-migration-apply" classname="Zeclib_Phing_MigrationApplyTask" />
+        <propertyprompt propertyName="table" promptText="Enter container directory" useExistingValue="true" />
+        <propertyprompt propertyName="system" promptText="Enter system" useExistingValue="true" />
+        <propertyprompt propertyName="version" promptText="Enter apply version" useExistingValue="true" />
+        <zeclib-migration-apply dataDir="${eccube.data_dir}" htmlDir="${eccube.html_dir}" containerDir="${container_dir}" system="${system}" version="${version}" />
+    </target>
+
+    <target name="migration-revert">
+        <taskdef name="zeclib-migration-revert" classname="Zeclib_Phing_MigrationRevertTask" />
+        <propertyprompt propertyName="table" promptText="Enter container directory" useExistingValue="true" />
+        <propertyprompt propertyName="system" promptText="Enter system" useExistingValue="true" />
+        <propertyprompt propertyName="version" promptText="Enter revert version" useExistingValue="true" />
+        <zeclib-migration-revert dataDir="${eccube.data_dir}" htmlDir="${eccube.html_dir}" containerDir="${container_dir}" system="${system}" version="${version}" />
+    </target>
+
+    <target name="migration-redo">
+        <taskdef name="zeclib-migration-redo" classname="Zeclib_Phing_MigrationRedoTask" />
+        <propertyprompt propertyName="table" promptText="Enter container directory" useExistingValue="true" />
+        <propertyprompt propertyName="system" promptText="Enter system" useExistingValue="true" />
+        <propertyprompt propertyName="version" promptText="Enter redo version" useExistingValue="true" />
+        <zeclib-migration-redo dataDir="${eccube.data_dir}" htmlDir="${eccube.html_dir}" containerDir="${container_dir}" system="${system}" version="${version}" />
+    </target>
+
+    <target name="migration-clear">
+        <taskdef name="zeclib-migration-clear" classname="Zeclib_Phing_MigrationClearTask" />
+        <propertyprompt propertyName="table" promptText="Enter container directory" useExistingValue="true" />
+        <propertyprompt propertyName="system" promptText="Enter system" useExistingValue="true" />
+        <propertyprompt propertyName="ignore_missing" promptText="Skip revert if migration container is missing (y/N)" defaultValue="n" useExistingValue="true" />
+        <zeclib-migration-clear dataDir="${eccube.data_dir}" htmlDir="${eccube.html_dir}" containerDir="${container_dir}" system="${system}" ignoreMissing="${ignore_missing}" />
+    </target>
+
+    <target name="migration-reset">
+        <taskdef name="zeclib-migration-reset" classname="Zeclib_Phing_MigrationResetTask" />
+        <propertyprompt propertyName="table" promptText="Enter container directory" useExistingValue="true" />
+        <propertyprompt propertyName="system" promptText="Enter system" useExistingValue="true" />
+        <propertyprompt propertyName="ignore_missing" promptText="Skip revert if migration container is missing (y/N)" defaultValue="n" useExistingValue="true" />
+        <zeclib-migration-reset dataDir="${eccube.data_dir}" htmlDir="${eccube.html_dir}" containerDir="${container_dir}" system="${system}" ignoreMissing="${ignore_missing}" />
+    </target>
+</project>

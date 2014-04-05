@@ -9,14 +9,14 @@ class Zeclib_PageStorage extends ArrayObject
 
     /**
      * @param array $input
-     * @param string $secret_key
+     * @param string $secretKey
      */
 
-    public function __construct($input = array(), $secret_key = null)
+    public function __construct($input = array(), $secretKey = null)
     {
         parent::__construct($input);
 
-        $this->secretKey = $secret_key;
+        $this->secretKey = $secretKey;
     }
 
     /**
@@ -30,13 +30,13 @@ class Zeclib_PageStorage extends ArrayObject
 
     /**
      * @param string $data
-     * @param string $secret_key
+     * @param string $secretKey
      * @return string
      */
 
-    protected function hash($data, $secret_key)
+    protected function hash($data, $secretKey)
     {
-        return hash_hmac('sha1', $data, $secret_key);
+        return hash_hmac('sha1', $data, $secretKey);
     }
 
     /**

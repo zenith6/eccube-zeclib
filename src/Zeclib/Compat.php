@@ -43,14 +43,14 @@ class Zeclib_Compat
      * JSON 形式の文字列を値に変換します。
      *
      * @param string $json
-     * @param bool $return_assoc
+     * @param bool $returnAssoc
      * @throws RuntimeException
      * @return mixed
      */
-    public static function decodeJson($json, $return_assoc = false)
+    public static function decodeJson($json, $returnAssoc = false)
     {
         if (function_exists('json_decode') && function_exists('json_last_error')) {
-            $native = json_decode($json, $return_assoc);
+            $native = json_decode($json, $returnAssoc);
             $error = json_last_error();
             if ($error !== JSON_ERROR_NONE) {
                 $message = function_exists('json_last_error_msg') ? json_last_error_msg() : 'error code: ' . $error;
@@ -63,7 +63,7 @@ class Zeclib_Compat
         // オートローダーを働かせて定数を定義させる。
         class_exists('Services_JSON');
 
-        $options = $return_assoc ? SERVICES_JSON_LOOSE_TYPE : 0;
+        $options = $returnAssoc ? SERVICES_JSON_LOOSE_TYPE : 0;
         $decoder = new Services_JSON($options);
         $native = $decoder->decode($json);
         if (Services_JSON::isError($json)) {

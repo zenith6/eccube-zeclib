@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="Zeclib" default="generate">
+    <property file="common.properties" />
+
+    <includepath classpath="${project.src_dir}" />
+    <taskdef name="zeclib-migration-generate" classname="Zeclib_Phing_MigrationGenerateTask" />
+
+    <target name="generate">
+        <property name="name" value="" />
+        <property name="version" value="" />
+        <property name="container_suffix" value="Migration.php" />
+        <property name="template_file" value="migration/template.php" />
+        <property name="container_dir" value="migration/migrations" />
+        <zeclib-migration-generate name="${name}" version="${version}" templateFile="${template_file}"
+            containerDir="${container_dir}" containerSuffix="${container_suffix}" />
+    </target>
+</project>

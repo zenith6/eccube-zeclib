@@ -2,7 +2,7 @@
 
 class Zeclib_PageStorageTest extends PHPUnit_Framework_TestCase
 {
-    protected $secret_key;
+    protected $secretKey;
 
     public function setUp()
     {
@@ -18,8 +18,8 @@ class Zeclib_PageStorageTest extends PHPUnit_Framework_TestCase
         $context = new Zeclib_PageStorage($init, $this->secretKey);
         $this->assertEquals($init, $context->getArrayCopy());
 
-        $secret_key = str_rot13($this->secretKey);
-        $context = new Zeclib_PageStorage($init, $secret_key);
+        $secretKey = str_rot13($this->secretKey);
+        $context = new Zeclib_PageStorage($init, $secretKey);
         $this->assertEquals('YToyOntzOjM6ImZvbyI7czozOiJGT08iO3M6MzoiYmFyIjtzOjM6IkJBUiI7fQ==--ZTRhYjhiNDYyMThiNWNhMzA2OTQzMWI3YzM5Nzg2YjVjYmQxMWUyYw==', $context->__toString());
     }
 

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<project name="property-test" default="none">
+    <property file="common.properties" />
+
+    <property name="project.plugin_dir" value="${project.test_file_dir}/plugins/PluginInfo" />
+
+    <includepath classpath="${project.src_dir}" />
+    <taskdef name="zeclib-plugin-info-get" classname="Zeclib_Phing_PluginInfoGetTask" />
+
+    <target name="missing-plugin">
+        <property name="plugin_dir" value="${project.test_file_dir}/plugins/Missing" />
+        <zeclib-plugin-info-get plugin="${plugin_dir}" key="PLUGIN_NAME" />
+    </target>
+
+    <target name="missing-property">
+        <zeclib-plugin-info-get plugin="${project.plugin_dir}" key="MISSING" />
+    </target>
+
+    <target name="to-log">
+        <zeclib-plugin-info-get plugin="${project.plugin_dir}" key="PLUGIN_NAME" />
+    </target>
+
+    <target name="to-property">
+        <zeclib-plugin-info-get plugin="${project.plugin_dir}" key="PLUGIN_NAME" to="plugin_name" />
+    </target>
+
+    <target name="get-property">
+        <zeclib-plugin-info-get plugin="${project.plugin_dir}" key="${key}" to="value" />
+    </target>
+</project>

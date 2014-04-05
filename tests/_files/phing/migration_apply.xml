@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="Zeclib" default="all">
+    <property file="common.properties" />
+
+    <includepath classpath="${project.src_dir}" />
+    <taskdef name="zeclib-migration-apply" classname="Zeclib_Phing_MigrationApplyTask" />
+
+    <target name="all">
+        <property name="container_dir" value="migration/migrations" />
+        <zeclib-migration-apply containerDir="${container_dir}" />
+    </target>
+</project>

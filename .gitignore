@@ -9,3 +9,6 @@
 # composer
 /vendor
 /composer.lock
+
+# test
+/utils/phing/local.properties

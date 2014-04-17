@@ -8,16 +8,6 @@
 class Zeclib_Phing_MigrationSetupTask extends Task
 {
     /**
-     * @var string
-     */
-    protected $name;
-
-    /**
-     * @var string
-     */
-    protected $versionTable;
-
-    /**
      * @var PhingFile
      */
     protected $dataDir;
@@ -26,6 +16,11 @@ class Zeclib_Phing_MigrationSetupTask extends Task
      * @var PhingFile
      */
     protected $htmlDir;
+
+    /**
+     * @var string
+     */
+    protected $versionTable;
 
     public function main()
     {
@@ -88,11 +83,6 @@ class Zeclib_Phing_MigrationSetupTask extends Task
         }
     }
 
-    public function setVersionTable($table)
-    {
-        $this->versionTable = $table;
-    }
-
     public function setDataDir(PhingFile $dir)
     {
         $this->dataDir = $dir;
@@ -101,5 +91,10 @@ class Zeclib_Phing_MigrationSetupTask extends Task
     public function setHtmlDir(PhingFile $dir)
     {
         $this->htmlDir = $dir;
+    }
+
+    public function setVersionTable($table)
+    {
+        $this->versionTable = $table;
     }
 }

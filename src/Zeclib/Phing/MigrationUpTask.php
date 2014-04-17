@@ -20,6 +20,11 @@ class Zeclib_Phing_MigrationUpTask extends Task
     /**
      * @var string
      */
+    protected $versionTable;
+
+    /**
+     * @var string
+     */
     protected $system;
 
     /**
@@ -71,6 +76,7 @@ class Zeclib_Phing_MigrationUpTask extends Task
 
         $query = SC_Query_Ex::getSingletonInstance();
         $storage = new Zeclib_DefaultMigrationStorage($query, $this->system);
+        $storage->versionTable = $this->versionTable;
         $storage->containerDirectories[] = $this->containerDir->getPath();
 
         $migrator = new Zeclib_Migrator($storage, $query);
@@ -93,14 +99,19 @@ class Zeclib_Phing_MigrationUpTask extends Task
         $this->htmlDir = $dir;
     }
 
-    public function setContainerDir(PhingFile $containerDir)
+    public function setVersionTable($table)
     {
-        $this->containerDir = $containerDir;
+        $this->versionTable = $table;
     }
 
     public function setSystem($system)
     {
         $this->system = $system;
+    }
+
+    public function setContainerDir(PhingFile $containerDir)
+    {
+        $this->containerDir = $containerDir;
     }
 
     public function setFrom($from)

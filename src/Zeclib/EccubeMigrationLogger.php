@@ -1,6 +1,6 @@
 <?php
 
-class Zeclib_Phing_EccubeMigrationLogger implements Zeclib_MigrationLogger
+class Zeclib_EccubeMigrationLogger implements Zeclib_MigrationLogger
 {
     public $defaultLogFile = null;
 
@@ -16,7 +16,7 @@ class Zeclib_Phing_EccubeMigrationLogger implements Zeclib_MigrationLogger
                 break;
 
             default:
-                GC_Utils_Ex::gfPrintLog($message, $defaultLogFile);
+                GC_Utils_Ex::gfPrintLog($message, $this->defaultLogFile);
                 break;
         }
     }

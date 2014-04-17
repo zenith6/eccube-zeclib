@@ -255,4 +255,25 @@ class Zeclib_MigratorTest extends PHPUnit_Framework_TestCase
             $this->assertEquals($expected, $migra->applied, 'Migration version:' . $version);
         }
     }
+
+    public function testMarkAppliedAll()
+    {
+        $this->storage->expects($this->exactly(5))
+            ->method('markApplied');
+
+        $versions = array(
+            '01',
+            '02',
+            '03',
+            '04',
+            '05',
+        );
+        $this->storage->expects($this->once())
+            ->method('getAllVersions')
+            ->willReturn($versions);
+
+        $migrator = new Zeclib_Migrator($this->storage, $this->query);
+        $migrator->markAppliedAll();
+
+    }
 }

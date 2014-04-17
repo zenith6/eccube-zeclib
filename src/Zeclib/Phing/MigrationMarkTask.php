@@ -1,11 +1,11 @@
 <?php
 
 /**
- * マイグレーションの適用をやり直します。
+ * マイグレーションを全て適用済みの状態にします。
  *
  * @author zenith
  */
-class Zeclib_Phing_MigrationRedoTask extends Task
+class Zeclib_Phing_MigrationMarkTask extends Task
 {
     /**
      * @var PhingFile
@@ -32,35 +32,30 @@ class Zeclib_Phing_MigrationRedoTask extends Task
      */
     protected $containerDir;
 
-    /**
-     * @var string
-     */
-    protected $version;
-
     public function main()
     {
         if ($this->dataDir === null || !$this->dataDir->isDirectory()) {
             $path = $this->dataDir ? $this->dataDir->getAbsolutePath() : '';
-            $message = sprintf('Unable to redo migrations. EC-CUBE data directory not available at "%s"', $path);
+            $message = sprintf('Unable to mark applied. EC-CUBE data directory not available at "%s"', $path);
             throw new BuildException($message);
         }
 
         if ($this->htmlDir === null || !$this->htmlDir->isDirectory()) {
             $path = $this->htmlDir ? $this->htmlDir->getAbsolutePath() : '';
-            $message = sprintf('Unable to redo migrations. EC-CUBE html directory not available at "%s"', $path);
+            $message = sprintf('Unable to mark applied. EC-CUBE html directory not available at "%s"', $path);
             throw new BuildException($message);
         }
 
         if ($this->containerDir === null || !$this->containerDir->isDirectory()) {
             $path = $this->containerDir ? $this->containerDir->getAbsolutePath() : '';
-            $message = sprintf('Unable to redo migrations. container directory not available at "%s"', $path);
+            $message = sprintf('Unable to mark applied. container directory not available at "%s"', $path);
             throw new BuildException($message);
         }
 
-        $this->doRedo();
+        $this->doMark();
     }
 
-    protected function doRedo()
+    protected function doMark()
     {
         $dataDir = $this->dataDir->getAbsolutePath();
         $htmlDir = $this->htmlDir->getAbsolutePath();
@@ -77,21 +72,11 @@ class Zeclib_Phing_MigrationRedoTask extends Task
         $migrator = new Zeclib_Migrator($storage, $query);
         $migrator->logger = new Zeclib_Phing_TaskMigrationLogger($this);
 
-        $migrations = array();
-        $versions = preg_split('/[,\\s]+/', $this->version, 0, PREG_SPLIT_NO_EMPTY);
-        foreach ($versions as $version) {
-            try {
-                $migrations[] = $migrator->loadMigration($version);
-            } catch (Zeclib_MigrationException $e) {
-                $message = $e->getMessage();
-                $this->log($message, Zeclib_MigrationLogger::TYPE_WARNING);
-            }
-        }
-        $num = $migrator->revert($migrations);
-        $this->log(sprintf('%d migrations are reverted.', $num));
+        $migrator->clear();
+        $this->log(sprintf('All migrations are removed.'));
 
-        $num = $migrator->apply($migrations);
-        $this->log(sprintf('%d migrations are applicated.', $num));
+        $migrator->markAppliedAll();
+        $this->log(sprintf('All migrations are mark with applied.'));
     }
 
     public function setDataDir(PhingFile $dir)
@@ -117,10 +102,5 @@ class Zeclib_Phing_MigrationRedoTask extends Task
     public function setContainerDir(PhingFile $containerDir)
     {
         $this->containerDir = $containerDir;
-    }
-
-    public function setVersion($version)
-    {
-        $this->version = $version;
     }
 }

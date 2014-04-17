@@ -213,4 +213,11 @@ class Zeclib_Migrator
 
         return $migration;
     }
+
+    public function markAppliedAll()
+    {
+        foreach ($this->getAllVersions() as $version) {
+            $this->storage->markApplied($version);
+        }
+    }
 }

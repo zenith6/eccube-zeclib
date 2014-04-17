@@ -215,4 +215,51 @@ class Zeclib_DefaultMigrationStorage extends Zeclib_MigrationStorage
             throw new Zeclib_MigrationException($result->getMessage(), $result->getCode());
         }
     }
+
+    public function setup()
+    {
+        $mdb2 = $this->query->conn;
+        $mdb2->loadModule('Manager');
+
+        $def = array(
+            'system' => array(
+                'type' => 'text',
+                'length' => 255,
+                'notnull' => 1,
+            ),
+            'version' => array(
+                'type' => 'text',
+                'length' => 255,
+                'notnull' => 1,
+            ),
+        );
+        $result = $mdb2->createTable($this->versionTable, $def);
+        if (PEAR::isError($result)) {
+            throw new Zeclib_MigrationException($result->getMessage());
+        }
+
+        $def = array(
+            'primary' => true,
+            'fields'  => array(
+                'system' => array(),
+                'version' => array(),
+            ),
+        );
+        $name = $this->versionTable . '_primary';
+        $result = $mdb2->createConstraint($this->versionTable, $name, $def);
+        if (PEAR::isError($result)) {
+            throw new Zeclib_MigrationException($result->getMessage());
+        }
+    }
+
+    public function destroy()
+    {
+        $mdb2 = $this->query->conn;
+        $mdb2->loadModule('Manager');
+
+        $result = $mdb2->dropTable($this->versionTable);
+        if (PEAR::isError($result)) {
+            throw new Zeclib_MigrationException($result->getMessage());
+        }
+    }
 }

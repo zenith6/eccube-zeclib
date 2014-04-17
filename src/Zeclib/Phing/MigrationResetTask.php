@@ -41,19 +41,19 @@ class Zeclib_Phing_MigrationResetTask extends Task
     {
         if ($this->dataDir === null || !$this->dataDir->isDirectory()) {
             $path = $this->dataDir ? $this->dataDir->getAbsolutePath() : '';
-            $message = sprintf('Unable to apply migrations. EC-CUBE data directory not available at "%s"', $path);
+            $message = sprintf('Unable to reset migrations. EC-CUBE data directory not available at "%s"', $path);
             throw new BuildException($message);
         }
 
         if ($this->htmlDir === null || !$this->htmlDir->isDirectory()) {
             $path = $this->htmlDir ? $this->htmlDir->getAbsolutePath() : '';
-            $message = sprintf('Unable to apply migrations. EC-CUBE html directory not available at "%s"', $path);
+            $message = sprintf('Unable to reset migrations. EC-CUBE html directory not available at "%s"', $path);
             throw new BuildException($message);
         }
 
         if ($this->containerDir === null || !$this->containerDir->isDirectory()) {
             $path = $this->containerDir ? $this->containerDir->getAbsolutePath() : '';
-            $message = sprintf('Unable to apply migrations. container directory not available at "%s"', $path);
+            $message = sprintf('Unable to reset migrations. container directory not available at "%s"', $path);
             throw new BuildException($message);
         }
 

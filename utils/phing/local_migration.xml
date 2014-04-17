@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="Zeclib" basedir="." default="none">
+    <property file="utils/phing/local.properties" />
+    <import file="utils/phing/migration.xml" />
+</project>

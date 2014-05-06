@@ -127,7 +127,7 @@ abstract class Zeclib_Migration
     {
         if (isset($def['constraints'])) {
             foreach ($def['constraints'] as $name => $constraint) {
-                $this->dropConstraint($tableName, $name, $constraint);
+                $this->dropConstraint($tableName, $name, !empty($constraint['primary']));
             }
         }
 

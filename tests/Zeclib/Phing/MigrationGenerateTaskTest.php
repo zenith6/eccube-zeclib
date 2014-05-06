@@ -13,12 +13,11 @@ class Zeclib_Phing_MigrationGenerateTaskTest extends Zeclib_Phing_TaskTestBase
     {
         $this->project->setUserProperty('name', 'CreateTable');
         $this->project->setUserProperty('version', '123');
-        $this->project->setUserProperty('container_suffix', 'MyMigration.php');
         $containerDir = $this->createTempDir();
         $this->project->setUserProperty('container_dir', $containerDir);
         $this->executeTarget('generate');
 
-        $container = $containerDir . '/123CreateTableMyMigration.php';
+        $container = $containerDir . '/123_CreateTableMigration.php';
         $this->assertFileExists($container);
 
         $expected = file_get_contents(ZECLIB_TEST_FILES_DIR . '/phing/migration/expected_123_CreateTableMyMigration.php');

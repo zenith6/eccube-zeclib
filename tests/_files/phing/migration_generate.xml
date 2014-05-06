@@ -9,10 +9,9 @@
     <target name="generate">
         <property name="name" value="" />
         <property name="version" value="" />
-        <property name="container_suffix" value="Migration.php" />
         <property name="template_file" value="migration/template.php" />
         <property name="container_dir" value="migration/migrations" />
         <zeclib-migration-generate name="${name}" version="${version}" templateFile="${template_file}"
-            containerDir="${container_dir}" containerSuffix="${container_suffix}" />
+            containerDir="${container_dir}" />
     </target>
 </project>

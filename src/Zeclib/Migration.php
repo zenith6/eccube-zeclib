@@ -66,4 +66,14 @@ abstract class Zeclib_Migration
     {
         $this->logger->log($message, $type);
     }
+
+    /**
+     * SC_Query_Ex で使用している MDB2 を取得します。
+     *
+     * @return MDB2_Driver_Manager_Common
+     */
+    public function getMDB2()
+    {
+        return $this->query->conn;
+    }
 }

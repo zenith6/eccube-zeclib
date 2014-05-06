@@ -111,7 +111,6 @@ class Zeclib_Phing_MigrationGenerateTask extends Task
             '__TPL_NAME__' => $className,
             '__TPL_BASE__'  => $this->baseClass,
         );
-        var_dump(strtr($this->containerName, $replacements));
         return strtr($this->containerName, $replacements);
     }
 
